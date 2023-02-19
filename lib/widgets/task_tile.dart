@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../models/task.dart';
 
-
 class TaskTile extends StatefulWidget {
-  const TaskTile({
-    super.key, required this.task
-  });
-final Task task;
+  const TaskTile({super.key, required this.task});
+
+  final Task task;
+
   @override
   State<TaskTile> createState() => _TaskTileState();
 }
@@ -17,19 +16,18 @@ class _TaskTileState extends State<TaskTile> {
 
   @override
   Widget build(BuildContext context) {
-
     return ListTile(
-      leading: const Text('1'),
+      
       title: Text(
         widget.task.title,
-        style:
-        TextStyle(decoration: isChecked ? TextDecoration.lineThrough : null),
+        style: TextStyle(
+            decoration: widget.task.isDone ? TextDecoration.lineThrough : null),
       ),
       trailing: MyCheckBox(
-        isChecked: isChecked,
+        isChecked: widget.task.isDone,
         fun: (v) {
           setState(() {
-            isChecked = v!;
+            widget.task.toggleTask();
           });
         },
       ),

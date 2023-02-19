@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/task.dart';
 import '../widgets/tasks_list.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -13,10 +13,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isChecked = false;
+  List<Task> tasks=[
+    Task(title: "test"),
+    Task(title: "test"),
+    Task(title: "test"),
+    Task(title: "test"),
+  ];
 
+  String newTask = "";
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Column(
@@ -26,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             flex: 1,
             child: Column(
-              children: const [
+              children:  [
                 Padding(
                   padding: EdgeInsets.all(16.0),
                   child: CircleAvatar(
@@ -45,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white),
                 ),
                 Text(
-                  "3 tasks",
+                  '${tasks.length} tasks',
                   style: TextStyle(fontSize: 15, color: Colors.white),
                 ),
               ],
@@ -63,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         topLeft: Radius.circular(15))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [TaskList()],
+                  children:  [TaskList(tasks: tasks,)],
                 )),
           )
         ],
@@ -87,7 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(color: Colors.blue, fontSize: 25),
                       ),
                     ),
-                    const TextField(),
+                     TextField(
+                      onChanged: (value){
+
+                          newTask=value;
+
+                      },
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -96,7 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: SizedBox(
                         width: double.maxFinite,
                         child: ElevatedButton(
-                            onPressed: () {}, child: const Text("Add Task")),
+                            onPressed: () {
+                              setState(() {
+                                tasks.add(Task(title: newTask));
+                              });
+                              Navigator.pop(context);
+
+                            }, child: const Text("Add Task")),
                       ),
                     )
                   ],

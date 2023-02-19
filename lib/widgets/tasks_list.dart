@@ -4,16 +4,11 @@ import 'package:todoapp/widgets/task_tile.dart';
 import '../models/task.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({super.key});
-
+  const TaskList({super.key,required this.tasks});
+final List<Task> tasks;
   @override
   Widget build(BuildContext context) {
-  List<Task> tasks=[
-    Task(title: "test"),
-    Task(title: "test"),
-    Task(title: "test"),
-    Task(title: "test"),
-  ];
+
 
     return Expanded(
       child: SizedBox(
